@@ -3,22 +3,21 @@ package com.example.doria.m2l;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.content.pm.PackageManager;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
-
 import android.content.CursorLoader;
 import android.content.Loader;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
-
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -29,8 +28,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.doria.m2l.http.LitFichier;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -63,7 +65,8 @@ public class Connexion extends AppCompatActivity implements LoaderCallbacks<Curs
     private View mLoginFormView;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_connexion);
         // Set up the login form.
@@ -92,6 +95,27 @@ public class Connexion extends AppCompatActivity implements LoaderCallbacks<Curs
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+        LitFichier litFichier = new LitFichier();
+        litFichier.execute("http://10.0.3.2/M2L/Ligues.xml");
+        try {
+            if (litFichier.get())
+            {
+                //Affichage contenus litFichier
+                for (String ligne : litFichier.donneLigue())
+                {
+                    Log.i("lithttp", ligne);
+                }
+            }
+
+
+            else
+                Log.i("lithttp", "Problème lecture fichier");
+        } catch (InterruptedException e) {
+            Log.i("lithttp", "Interruption lecture fichier");
+        } catch (ExecutionException e) {
+            Log.i("lithttp", "Problème exécution");
+        }
     }
 
     private void populateAutoComplete() {
