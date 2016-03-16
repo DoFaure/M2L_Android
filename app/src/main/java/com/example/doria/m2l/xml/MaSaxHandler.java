@@ -1,7 +1,9 @@
 package com.example.doria.m2l.xml;
 
+import com.example.doria.m2l.metier.Categorie;
 import com.example.doria.m2l.metier.Club;
 import com.example.doria.m2l.metier.Equipe;
+import com.example.doria.m2l.metier.Licence;
 import com.example.doria.m2l.metier.ligue;
 
 import org.xml.sax.Attributes;
@@ -28,6 +30,8 @@ public class MaSaxHandler extends DefaultHandler
 	 private List<ligue> lesLigues = new ArrayList<ligue>();
      private Club unClub;
      private Equipe uneEquipe;
+	 private Categorie uneCategorie;
+	 private Licence uneLicence;
 
 	   public void parse(InputStream is) throws ParserConfigurationException, SAXException, IOException
 	   {
@@ -42,6 +46,7 @@ public class MaSaxHandler extends DefaultHandler
 		   if(localName.equals("ligue")) uneLigue = new ligue();
            if (localName.equals("club"))  unClub = new Club();
            if (localName.equals("equipe"))  uneEquipe = new Equipe();
+		   if (localName.equals("categorie"))  uneCategorie = new Categorie();
 	   }
 
 	   public void characters(char[] ch,int start, int length) throws SAXException
@@ -135,6 +140,36 @@ public class MaSaxHandler extends DefaultHandler
            {
                uneEquipe.setLibelleEquipe(valeur);
            }
+
+
+		     /*-------------------------/
+		    /  Gestion des catégories  /
+		   /-------------------------*/
+		   else if(localName.equals("categorie"))
+		   {
+
+		   }
+
+		   else if(localName.equals("codeCategorie"))
+		   {
+			   uneCategorie.setCodeCategorie(Integer.parseInt(valeur));
+		   }
+
+		   else if(localName.equals("libelleCategorie"))
+		   {
+			   uneCategorie.setLibelleCategorie(valeur);
+		   }
+
+		   else if(localName.equals("ageMax"))
+		   {
+			   uneCategorie.setAgeMax(Integer.parseInt(valeur));
+		   }
+
+		   else if(localName.equals("ageMin"))
+		   {
+			   uneCategorie.setAgeMin(Integer.parseInt(valeur));
+		   }
+
 
 
 	    }
