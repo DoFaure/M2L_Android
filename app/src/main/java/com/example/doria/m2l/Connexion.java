@@ -96,16 +96,66 @@ public class Connexion extends AppCompatActivity implements LoaderCallbacks<Curs
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
 
+        //Parcours l'intégralité du fichier
         LitFichier litFichier = new LitFichier();
-        litFichier.execute("http://10.0.3.2/M2L/Ligues.xml");
+        litFichier.execute("http://10.0.3.2/M2L/m2l.xml");
         try {
             if (litFichier.get())
             {
-                //Affichage contenus litFichier
+                //Affichage contenus des ligues
+                Log.i("lithttp", "Liste des ligues :");
                 for (String ligne : litFichier.donneLigue())
                 {
                     Log.i("lithttp", ligne);
                 }
+                Log.i("lithttp", " \n \n ");
+
+
+                //Affichage du contenu des catégories
+                for (String ligne : litFichier.donneCategorie())
+                {
+                    Log.i("lithttp", ligne);
+                }
+
+
+                //Affichage du contenu des catégories (details)
+                for (String ligne : litFichier.donneDetailCateg())
+                {
+                    Log.i("lithttp", ligne);
+                }
+
+                
+                //Affichage de la liste des groupes des utilisateurs
+                for (String ligne : litFichier.listeGroupe())
+                {
+                    Log.i("lithttp", ligne);
+                }
+
+
+
+                //Affichage de la liste des participant
+                /*for (String ligne : litFichier.donneParticipants())
+                {
+                    Log.i("lithttp", ligne);
+                }*/
+
+                //Affichage de la liste des licences
+                /*for (String ligne : litFichier.donneLicence())
+                {
+                    Log.i("lithttp", ligne);
+                }*/
+
+                //Affichage de la liste des Inscrit
+                /*for (String ligne : litFichier.donneInscrit())
+                {
+                    Log.i("lithttp", ligne);
+                }*/
+
+                //Affichage de la liste des groupes des utilisateurs
+                /*for (String ligne : litFichier.donneGroupUser())
+                {
+                    Log.i("lithttp", ligne);
+                }*/
             }
 
 

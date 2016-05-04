@@ -62,4 +62,14 @@ public class Categorie
     {
         this.ageMax=max;
     }
+
+    //Function
+    public String toString()
+    {
+        String str = " -------------------------------- \n | Categorie : "+libelleCategorie+"              | \n -------------------------------- \n";
+        str+="Age min : "+ageMin+"\n";
+        str+="Age max : "+ageMax+"\n";
+        str+=" \n \n ";
+        return str;
+    }
 }
